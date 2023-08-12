@@ -1,0 +1,25 @@
+---
+- name: Install and Configure PostgreSQL
+  hosts: "localhost"
+  become: yes
+
+  tasks:
+    - name: Install psycopg2 Python library
+      apt:
+        name: python3-psycopg2  
+        state: present
+    - name: Install PostgreSQL
+      apt:
+        name: postgresql
+        state: present
+
+    - name: Create PostgreSQL User
+      postgresql_user:
+        db: db
+        user: admin
+        password: admin
+        priv: ALL
+        state: present
+        login_host: localhost
+        login_user: postgres
+   
